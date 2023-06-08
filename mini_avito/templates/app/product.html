@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+
+<div class="fixed-div">
+  <nav class="top-navigation">
+    <ul>
+        <li><a href="{% url 'homepage' %}">На главную</a></li>
+        <li><a href="{% url 'product_list' %}">Доска объявлений</a></li>
+        <li><a href="{% url 'my_products' %}">Мои объявления</a></li>
+        <li><a href="{% url 'my_orders' %}">Мои заказы</a></li>
+        <li><a href="{% url 'my_sales' %}">Продажи</a></li>
+        <li>
+        <form id="logout-form" action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <a onclick="document.getElementById('logout-form').submit()">Выйти</a>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</div>
+<div>
+    <div class="image-widget">
+        <div class="slider">
+            {% for img in imgs %}
+                <img src="{{ img.img.url }}">
+            {% empty %}
+                <img>
+            {% endfor %}
+        </div>
+        <button class="prev-button">&lt;</button>
+        <button class="next-button">&gt;</button>
+    </div>
+</div>
+<div class="container">
+  <div class="widget">
+    <h1>{{ product.name }}</h1>
+    <h4>Категория:</h4>
+    <p>{{ product.p_cat.cp_name }}</p>
+    <h4>Описание товара:</h4>
+    <p>{{ product.description }}</p>
+    <h2>Цена: ${{ product.price }}</h2>
+    <h2>Адрес: {{ product.client.address }}</h2>
+    <h2>Количество: {{ product.quantity }} шт.</h2>
+  </div>
+  <div class="widget_1">
+    <h1>{{ product.client.full_name }}</h1>
+    <h3>Контакты:</h3>
+    <p>{{ product.client.phone }}</p>
+    <p>{{ product.client.mail }}</p>
+    {% if product.client.user != user and product.quantity != 0 %}
+    <form id="create_order" action="" method="post">        <!--        TODO Доделать-->
+        {% csrf_token %}
+        <button class="custom-button" onclick="document.getElementById('create_order').submit()">Заказать</button>
+        <input type="number" step="1" min="1" max="{{ product.quantity }}" placeholder="Enter quantity" name="quantity" value="1">
+    </form>
+    {% endif %}
+  </div>
+</div>
+<script src="{% static 'js/product.js' %}"></script>
+{% endblock %}

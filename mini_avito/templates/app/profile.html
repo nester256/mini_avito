@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+<div class="fixed-div">
+  <nav class="top-navigation">
+    <ul>
+      <li><a href="{% url 'homepage' %}">На главную</a></li>
+      <li><a href="{% url 'product_list' %}">Доска объявлений</a></li>
+      <li><a href="{% url 'my_products' %}">Мои объявления</a></li>
+      <li><a href="{% url 'my_orders' %}">Мои заказы</a></li>
+      <li><a href="{% url 'my_sales' %}">Продажи</a></li>
+      <li>
+        <form id="logout-form" action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <a onclick="document.getElementById('logout-form').submit()">Выйти</a>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</div>
+<div class="profile">
+  <table class="profile-table">
+    <caption>Профиль</caption>
+    <tr>
+      <tr>
+        <td rowspan="5">
+          <img src="{{ client.image_client.url }}" alt="Профиль" class="profile-image">
+        </td>
+      </tr>
+      <tr>
+        <td>Полное имя</td>
+        <td>{{ client.full_name }}</td>
+      </tr>
+      <tr>
+        <td>Почта</td>
+        <td>{{ client.user.email }}</td>
+      </tr>
+      <tr>
+        <td>Номер телефона</td>
+        <td>
+          {{ client.phone }}
+        </td>
+      </tr>
+      <tr>
+        <td>Основной адрес</td>
+        <td>
+          {{ client.address }}
+        </td>
+      </tr>
+  </table>
+</div>
+{% endblock %}

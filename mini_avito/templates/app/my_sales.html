@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/my_s.css' %}">
+<div class="fixed-div">
+  <nav class="top-navigation">
+    <ul>
+      <li><a href="{% url 'homepage' %}">На главную</a></li>
+      <li><a href="{% url 'product_list' %}">Доска объявлений</a></li>
+      <li><a href="{% url 'profile' %}">Профиль</a></li>
+      <li><a href="{% url 'my_orders' %}">Мои заказы</a></li>
+      <li>
+        <form id="logout-form" action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <a onclick="document.getElementById('logout-form').submit()">Выйти</a>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</div>
+<div class="name_pr">
+  <h1>У вас заказали:</h1>
+</div>
+{% for order in orders %}
+<div class="order_div">
+  <table class="order-table">
+    <tr>
+      <td colspan="2">
+        <h2>Заказ {{ order.product.name }} {{ order.quantity }} штук.</h2>
+      </td>
+    </tr>
+    <tr>
+      <td>Цена:</td>
+      <td>{{ order.price }}</td>
+    </tr>
+    <tr>
+      <td>Статус оплаты</td>
+      <td>{{ order.status }}</td>
+    </tr>
+    <tr>
+      <td>Статус доставки</td>
+      <td>{{ order.delivery_status }}</td>
+    </tr>
+    {% if order.delivery_status == 'Waiting' and order.status == 'Confirmed' %}
+    <tr>
+      <td>
+          <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ order.id }}">
+            <button>Заказ отправлен</button>
+          </form>
+      </td>
+    </tr>
+        {% elif order.delivery_status == 'Delivered' %}
+    <tr>
+      <td colspan="2">
+          <form action="{% url 'get_money' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ order.id }}">
+            <input type="text" name="rec_id" placeholder="Введите номер счета" required="">
+            <button type="submit">Бабло</button>
+            <a href="{{ bost_url }}">Нет счета? - Зарегистрируйся</a>
+          </form>
+      </td>
+    </tr>
+    {% endif %}
+  </table>
+</div>
+{% endfor %}
+
+{% endblock %}

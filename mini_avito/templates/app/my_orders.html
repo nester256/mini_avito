@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/my_o.css' %}">
+<div class="fixed-div">
+  <nav class="top-navigation">
+    <ul>
+      <li><a href="{% url 'homepage' %}">На главную</a></li>
+      <li><a href="{% url 'product_list' %}">Доска объявлений</a></li>
+      <li><a href="{% url 'profile' %}">Профиль</a></li>
+      <li><a href="{% url 'my_orders' %}">Мои заказы</a></li>
+      <li><a href="{% url 'my_sales' %}">Продажи</a></li>
+      <li>
+        <form id="logout-form" action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <a onclick="document.getElementById('logout-form').submit()">Выйти</a>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</div>
+<div class="name_pr">
+  <h1>Заказы</h1>
+</div>
+{% for order in orders %}
+<div class="order_div">
+  <table class="order-table">
+    <tr>
+      <td colspan="2">
+        <h2>Заказ {{ order.product.name }} {{ order.quantity }} штук.</h2>
+      </td>
+    </tr>
+    <tr>
+      <td>Цена:</td>
+      <td>{{ order.price }}</td>
+    </tr>
+    <tr>
+      <td>Статус оплаты</td>
+      <td>{{ order.status }}</td>
+    </tr>
+    <tr>
+      <td>Статус доставки</td>
+      <td>{{ order.delivery_status }}</td>
+    </tr>
+    {% if order.delivery_status == 'On the way' %}
+    <tr>
+      <td>
+        <form method="post" action="">
+          {% csrf_token %}
+          <input type="hidden" name="id" value="{{ order.id }}">
+          <button type="submit">Заказ доставлен</button>
+        </form>
+      </td>
+    </tr>
+    {% endif %}
+  </table>
+</div>
+{% endfor %}
+
+{% endblock %}

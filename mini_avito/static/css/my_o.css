@@ -1,0 +1,29 @@
+.top-navigation {
+  background-color: #000;
+}
+
+.top-navigation ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.top-navigation li {
+  margin-right: 10px;
+}
+
+.top-navigation li:last-child {
+  margin-right: 0;
+}
+
+.top-navigation li a {
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #007bff;
+}
+
+.top-navigation li a:hover {
+  background-color: #ccc;
+}

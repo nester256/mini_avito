@@ -1,0 +1,54 @@
+.container {
+  height: 100vh; /* задаем высоту контейнера на всю высоту экрана */
+  display: flex;
+  justify-content: center; /* выравнивание содержимого по центру по горизонтали */
+  align-items: center; /* выравнивание содержимого по центру по вертикали */
+}
+
+.form-container {
+  background-color: #f2f2f2; /* задаем фон для формы */
+  padding: 10px; /* задаем отступы вокруг формы */
+  border-radius: 10px; /* задаем скругление углов для формы */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* добавляем тень для формы */
+}
+
+.register-form {
+  width: 400px; /* ширина формы */
+  background-color: #fff;
+  padding: 50px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 20px 136px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+body {
+  background-image: url("/static/img/stars.jpeg");
+  background-size: cover;
+  background-position: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 20px;
+}

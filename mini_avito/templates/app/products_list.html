@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/p_list.css' %}">
+<div class="fixed-div">
+  <nav class="top-navigation">
+    <ul>
+      <li><a href="{% url 'homepage' %}">На главную</a></li>
+      <li><a href="{% url 'profile' %}">Профиль</a></li>
+      <li><a href="{% url 'my_products' %}">Мои объявления</a></li>
+      <li><a href="{% url 'my_orders' %}">Мои заказы</a></li>
+      <li><a href="{% url 'my_sales' %}">Продажи</a></li>
+      <li>
+        <form id="logout-form" action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <a onclick="document.getElementById('logout-form').submit()">Выйти</a>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</div>
+<h1>Объявления</h1>
+{% for product in products %}
+<div class="product_div">
+    <table class="product-table">
+      <tr>
+        <td rowspan="5" class="product-image">
+            <a href="{% url 'product' p_id=product.id %}">
+                <img src="{{ product.cur_img.url }}" alt="Обложка">
+            </a>
+        </td>
+      </tr>
+      <tr>
+        <td class="product-name" colspan="3">{{ product.name }}</td>
+      </tr>
+      <tr>
+        <td>Категория</td>
+        <td class="product-category">{{ product.p_cat.cp_name }}</td>
+      </tr>
+      <tr>
+        <td class="product-description">Описание</td>
+        <td class="product-description">{{ product.description }}</td>
+      </tr>
+      <tr>
+        <td>Адрес:</td>
+        <td>{{ product.client.address }}</td>
+      </tr>
+        <tr>
+            <td colspan="3">${{ product.price }}</td>
+        </tr>
+    </table>
+</div>
+
+{% endfor %}
+
+<!-- Отображение пагинации -->
+<div class="pagination">
+    <span class="step-links">
+        {% if products.has_previous %}
+            <a href="?page=1">&laquo; первая</a>
+            <a href="?page={{ products.previous_page_number }}">предыдущая</a>
+        {% endif %}
+
+        <span class="current-page">{{ products.number }}</span>
+
+        {% if products.has_next %}
+            <a href="?page={{ products.next_page_number }}">следующая</a>
+            <a href="?page={{ products.paginator.num_pages }}">последняя &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

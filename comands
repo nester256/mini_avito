@@ -1,0 +1,6 @@
+# Что бы создать токен
+./manage.py createsuperuser
+<Enther username>
+
+./manage.py drf_create_token -r <username>
+

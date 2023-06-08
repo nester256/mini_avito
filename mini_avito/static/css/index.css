@@ -1,0 +1,104 @@
+/* стили для всего сайта */
+body {
+  font-family: "Hiragino Kaku Gothic Pro", sans-serif;
+}
+
+/* стили для меню навигации */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin: 0 10px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* стили для регистрации и авторизации */
+.auth-links {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.auth-links a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.banner {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.banner img {
+  max-width: 100%;
+  height: auto;
+  margin: 10px;
+}
+
+.fixed-div {
+  position: fixed;
+  top: 30px;
+  left: 90px;
+  width: 90%;
+  height: 44px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  z-index: 999;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 155px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.description {
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 30px;
+}
+
+.advantages {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.advantages li {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+p {
+  font-size: 18px;
+  line-height: 1.5;
+}
