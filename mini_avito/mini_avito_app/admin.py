@@ -1,31 +1,31 @@
 from django.contrib import admin
-from .models import Products, Order, Category_products, Images_products, Client, Images
+from mini_avito_app import models
 
 
 class ProductsInline(admin.TabularInline):
-    model = Products
+    model = models.Products
     extra = 1
 
 
 class OrderInline(admin.TabularInline):
-    model = Order
+    model = models.Order
     extra = 1
 
 
-class Category_productsInline(admin.TabularInline):
-    model = Category_products
+class CategoryProductsInline(admin.TabularInline):
+    model = models.CategoryProducts
     extra = 1
 
 
-class Images_productsInline(admin.TabularInline):
-    model = Images_products
+class ImagesProductsInline(admin.TabularInline):
+    model = models.ImagesProducts
     extra = 1
 
 
 # Покупатель/Продавец
-@admin.register(Client)
+@admin.register(models.Client)
 class ClientAdmin(admin.ModelAdmin):
-    model = Client
+    model = models.Client
     inlines = [ProductsInline, OrderInline]
     list_filter = (
         'full_name',
@@ -33,10 +33,10 @@ class ClientAdmin(admin.ModelAdmin):
 
 
 # Продукт
-@admin.register(Products)
+@admin.register(models.Products)
 class ProductsAdmin(admin.ModelAdmin):
-    model = Products
-    inlines = [Images_productsInline]
+    model = models.Products
+    inlines = [ImagesProductsInline]
     list_filter = (
         'name',
         'available',
@@ -45,24 +45,24 @@ class ProductsAdmin(admin.ModelAdmin):
 
 
 # Категория продуктов
-@admin.register(Category_products)
-class Category_productsAdmin(admin.ModelAdmin):
-    model = Category_products
+@admin.register(models.CategoryProducts)
+class CategoryProductsAdmin(admin.ModelAdmin):
+    model = models.CategoryProducts
     list_filter = (
         'cp_name',
     )
 
 
 # Заказ
-@admin.register(Order)
+@admin.register(models.Order)
 class OrderAdmin(admin.ModelAdmin):
-    model = Order
+    model = models.Order
     list_filter = (
         'status',
         'price',
     )
 
 
-@admin.register(Images)
+@admin.register(models.Images)
 class ImagesAdmin(admin.ModelAdmin):
-    model = Images
+    model = models.Images

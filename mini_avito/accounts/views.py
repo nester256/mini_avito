@@ -1,24 +1,20 @@
-from django.shortcuts import redirect, render
-from django.views.decorators.csrf import csrf_exempt
-from .forms import RegistrationForm
-from mini_avito_app.models import Client
+from accounts import config, forms
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from . import config
+from django.shortcuts import redirect, render
+from django.views.decorators.csrf import csrf_exempt
+from mini_avito_app.models import Client
 
 
-# Оставил тут по минимуму для использования приложения авторизации и регистрации в других проектах
-# TODO Поправить ошибку с номером телефона
 def register(request):
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
+        form = forms.RegistrationForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             first_name = form.cleaned_data.get('first_name')
             surname = form.cleaned_data.get('surname')
             email = form.cleaned_data.get('email')
             number = form.cleaned_data.get('number')
-            print(f'\n\n\n{form.cleaned_data}\n\n\n')
             password = form.cleaned_data.get('password1')
             user = User.objects.create_user(
                 username=username,
@@ -34,9 +30,9 @@ def register(request):
             )
             return redirect('login')
         else:
-            print(f'\n\n\n{form.errors}\n\n\n')
+            form = form.errors
     else:
-        form = RegistrationForm()
+        form = forms.RegistrationForm()
 
     context = {'form': form}
     return render(request, config.REGISTER_ACCOUNTS, context)

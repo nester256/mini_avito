@@ -8,8 +8,6 @@ from mini_avito_app.models import *
 from rest_framework.authtoken.models import Token
 import json
 
-# from mini_avito.mini_avito_app.models import Client
-
 
 def create_viewset_tests(
     url: str,

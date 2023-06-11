@@ -1,11 +1,9 @@
 from django import forms
-from . import models
-from . import config
+from mini_avito_app import config, models
 
 
 class ProductsForm(forms.ModelForm):
-    # p_cat = forms.ChoiceField(widget=forms.Select())
-    p_cat = forms.ModelChoiceField(queryset=models.Category_products.objects.all())
+    p_cat = forms.ModelChoiceField(queryset=models.CategoryProducts.objects.all())
     name = forms.CharField(max_length=config.CHARS_DEFAULT, required=True)
     description = forms.CharField(max_length=200)
     quantity = forms.IntegerField(max_value=99, min_value=1, step_size=1)
@@ -13,7 +11,7 @@ class ProductsForm(forms.ModelForm):
     cur_img = forms.ImageField(
         label='Product current img',
         required=False,
-        widget=forms.ClearableFileInput(attrs={'multiple': False})
+        widget=forms.ClearableFileInput(attrs={'multiple': False}),
     )
 
     class Meta:
@@ -22,6 +20,6 @@ class ProductsForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        categories = models.Category_products.objects.all()
+        categories = models.CategoryProducts.objects.all()
         choices = [(category.id, str(category)) for category in categories]
         self.fields['p_cat'].choices = choices

@@ -31,3 +31,6 @@ BOOST_CALLBACK_URL = 'http://185.105.89.164:8000/rest/Order/{order_id}/'
 BOOST_CALLBACK_HEADERS = {'Authorization': f"Token {getenv('TOKEN')}"}
 BOOST_CALLBACK_REDIRECT = 'http://185.105.89.164:8000/profile/'
 BOOST_REDIRECT = 'https://boostbank.ru/payment/{payment_id}'
+
+UNSAVED_METHODS = ['GET', 'HEAD', 'PATCH']
+SAVED_METHODS = ['POST', 'PUT', 'DELETE']
