@@ -102,7 +102,7 @@ class ProductPageViewTests(TestCase):
         )
         self.client.login(username=default, password=default)
         # print(product.id)
-        self.url = f'/product/{product.id}'
+        self.url = f'/product:{product.id}'
         # print(f"\n\n\n{self.url}\n\n\n")
         self.page_name = 'product'
         self.template = 'app/product.html'

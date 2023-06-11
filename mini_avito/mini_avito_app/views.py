@@ -26,6 +26,7 @@ def profile(request):
         return Response("Such client does not exist", status=status_codes.HTTP_404_NOT_FOUND)
     return render(request, config.PROFILE_ACCOUNTS, {'client': client})
 
+
 class Permission(permissions.BasePermission):
     def has_permission(self, request, _):
         if request.method in ['GET', 'HEAD', 'PATCH']:

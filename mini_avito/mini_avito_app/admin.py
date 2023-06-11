@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import *
+from .models import Products, Order, Category_products, Images_products, Client, Images
 
 
 class ProductsInline(admin.TabularInline):
