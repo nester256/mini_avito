@@ -51,6 +51,7 @@ jobs:
       - name: Тесты
         run: |
           cd ..
+          ls
           python3 manage.py makemigrations mini_avito_app
           python3 manage.py migrate
           python3 manage.py test tests
