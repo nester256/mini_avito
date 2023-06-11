@@ -74,8 +74,8 @@ def create_viewset_tests(
 
 ClientTests = create_viewset_tests(
     '/rest/Category_product/',
-    Category_products,
-    Category_productsSerializer,
+    CategoryProducts,
+    CategoryProductsSerializer,
     {
         'cp_name': "Недвижимость"
     },
@@ -193,7 +193,7 @@ class ProductTests(APITestCase):
             phone='88005553535',
             mail=f'{self.user.email}'
         )
-        p_cat = Category_products.objects.create(
+        p_cat = CategoryProducts.objects.create(
             cp_name='Запчасти'
         )
         self.request_data = {
@@ -285,7 +285,7 @@ class OrderTests(APITestCase):
             phone='88005553535',
             mail=f'{self.user.email}'
         )
-        p_cat = Category_products.objects.create(
+        p_cat = CategoryProducts.objects.create(
             cp_name='Запчасти'
         )
         product = Products.objects.create(
