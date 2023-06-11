@@ -7,7 +7,6 @@ from mini_avito_app.serializers import *
 from mini_avito_app.models import *
 from rest_framework.authtoken.models import Token
 import json
-from datetime import datetime
 
 # from mini_avito.mini_avito_app.models import Client
 
@@ -111,14 +110,14 @@ class ClientTests(APITestCase):
             'mail': f'{self.user.email}'
         }
         user = User.objects.create(
-                is_superuser=True,
-                id=2,
-                username='test1',
-                first_name='test1',
-                last_name='test1',
-                email='test1@mail.ru',
-                password='test1'
-            )
+            is_superuser=True,
+            id=2,
+            username='test1',
+            first_name='test1',
+            last_name='test1',
+            email='test1@mail.ru',
+            password='test1'
+        )
         self.model = Client.objects.create(
             user=user,
             address='г. Липецк, ул. Неделена, д. 3',

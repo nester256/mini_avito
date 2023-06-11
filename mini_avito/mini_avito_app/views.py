@@ -26,11 +26,6 @@ def profile(request):
         return Response("Such client does not exist", status=status_codes.HTTP_404_NOT_FOUND)
     return render(request, config.PROFILE_ACCOUNTS, {'client': client})
 
-
-# TODO Сделать форму изменения профиля
-# TODO Сделать просмотр всех объявлений с пагинацией (вдальнейшем фильтрами) 50/50 ГОТОВО
-
-
 class Permission(permissions.BasePermission):
     def has_permission(self, request, _):
         if request.method in ['GET', 'HEAD', 'PATCH']:
@@ -54,7 +49,8 @@ def query_from_request(request, cls_serializer=None) -> dict:
 def create_viewset(cls_model: models.Model, serializer, permission, order_field):
     class_name = f"{cls_model.__name__}ViewSet"
     doc = f"API endpoint that allows users to be viewed or edited for {cls_model.__name__}"
-    CustomViewSet = type(class_name, (viewsets.ModelViewSet,),
+    CustomViewSet = type(class_name,
+                         (viewsets.ModelViewSet,),
                          {
                              "__doc__": doc,
                              "serializer_class": serializer,
@@ -62,7 +58,8 @@ def create_viewset(cls_model: models.Model, serializer, permission, order_field)
                              "permission classes": [permission],
                              "get_queryset": lambda self, *args, **kwargs: cls_model.objects.filter(
                                  **query_from_request(self.request, serializer)).order_by(order_field)
-                         })
+                         }
+                         )
 
     return CustomViewSet
 
@@ -90,7 +87,7 @@ def product_page(request, p_id):
     images = [images_products.id_img for images_products in images_products]
     client = Client.objects.get(user=request.user)
     n_quantity = request.POST.get('quantity')
-    if request.method == 'POST':  ## by radugaboost©
+    if request.method == 'POST':    # by radugaboost©
         with transaction.atomic():
             order = Order.objects.create(
                 price=product.price * int(n_quantity),
@@ -200,7 +197,7 @@ def get_money(request):
                     order_on_d.delivery_status = 'Completed'
                     order_on_d.save()
                 return redirect('profile')
-            return redirect('error_page')       #TODO Сделать
+            return redirect('error_page')  # TODO Сделать
 
 
 @decorators.login_required(login_url='login')
