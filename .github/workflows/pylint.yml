@@ -50,6 +50,7 @@ jobs:
           echo "SECRET_KEY=test" >> mini_avito/.env
       - name: Тесты
         run: |
+          cd ..
           python3 manage.py makemigrations mini_avito_app
           python3 manage.py migrate
           python3 manage.py test tests
